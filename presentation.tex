@@ -1,0 +1,296 @@
+\PassOptionsToPackage{usenames, dvipsnames}{xcolor}
+\documentclass[11pt,aspectratio=169,t]{beamer}
+
+\input{header.tex}
+
+
+\begin{document}
+
+\title{Beamer presentation template}
+
+\author{Tommaso Grigoletto}
+
+\date{\today}
+%-------------------------------------------TITLE CARD-------------------------------------
+\setBGColor{UNIPDred}
+\frame[noframenumbering]{\titlepage}
+
+%-------------------------------------------INTRO----------------------------------------
+
+\setLayout{vertical}
+\begin{frame}[noframenumbering,plain]{Agenda}
+	\vfill
+	\centering
+	    \textbf{\color{c1}  Introduction}\\ \bigskip
+		\textbf{\color{c2}  System representation}\\ \bigskip
+		\textbf{\color{c3}  System analysis}\\ \bigskip
+		\textbf{\color{c4}  Control design}\\ \bigskip
+	\vfill
+\end{frame}
+
+\setBGColor{c1}
+\setLayout{horizontal}
+\begin{frame}[noframenumbering,plain]{Overlay curvy arrows}
+	\vfill
+        \begin{equation*}
+            \begin{cases}
+                \rho(t+1) = \tikzmark{A}{\mathcal{A}}[\tikzmark{rho}{\rho(t)}]\\
+                \tikzmark{p}{\bm{p}(t)} = \tikzmark{C}{\mathcal{C}}[\rho(t)]
+            \end{cases}
+        \end{equation*}
+        \begin{tikzpicture}[overlay, remember picture,node distance =.8cm]
+            \only<1->{
+            \node[rectangle, fill=none, draw=red!20, thick,
+            minimum width = 0.8cm, 
+            minimum height = 0.6cm] (rhobox) at (rho) {};
+            \node[,text width=8cm] (rhodescr) [above right =of rho]{$\rho$ are density operators:\\ $\rho\in\mathbb{C}^{n\times n}$, $\rho=\rho^\dag\geq0$ and $\tr[\rho]=1$\\
+            \alert{Quantum probability distributions}};
+            \draw[red!30,->,thick] (rhodescr) to [in=90,out=-90] (rho);}
+        
+            \only<1->{
+            \node[rectangle, fill=none, draw=blue!30, thick,
+            minimum width = 0.6cm, 
+            minimum height = 0.5cm] (rhobox) at (A) {};
+            \node[,text width=6cm] (Adescr) [above left=of A]{$\mathcal{A}$ is a linear completely positive and trace preserving map\\
+            \alert{``Stochastic'' map}};
+            \draw[blue!30,->,thick] (Adescr) to [in=90,out=-90] (A.north);}
+            
+            \only<2->{
+            \node[rectangle, fill=none, draw=purple!30, thick,
+            minimum width = 0.5cm, 
+            minimum height = 0.5cm] (rhobox) at (C) {};
+            \node[,text width=8cm] (Cdescr) [below right =of C]{$\mathcal{C}$ is a linear map that gives the probabilities of the outcome of a measurement \\
+            \alert{Oputput map}};
+            \draw[purple!30,->,thick] (Cdescr) to [in=-90,out=90] (C.south);}
+            
+            \only<2->{
+            \node[rectangle, fill=none, draw=ForestGreen!30, thick,
+            minimum width = 0.8cm, 
+            minimum height = 0.6cm] (rhobox) at (p) {};
+            \node[,xshift=1cm,text width=5cm] (pdescr) [below left =of p]{$\bm p$ are probability vectors:\\ $\bm p\in\mathbb{R}^m$ $\bm p_i\geq0$ and  $\sum_i\bm p_i = 1$\\
+            \alert{Classical probability\\ distribution}};
+            \draw[ForestGreen!30,->,thick] (pdescr) to [in=-135,out=90] (p.south);}
+            
+            \only<2->{ 
+            \node[yshift=0.5cm,text width=10cm] (modeldescr) [below =of Cdescr]{\small{This model includes hidden markov model \\ but \textbf{does not include} the effects of conditioning. }};
+            }
+        \end{tikzpicture}
+	\vfill
+\end{frame}
+
+\setLayout{vertical}
+\begin{frame}{Sample frame title}
+    
+    In this slide, some important text will be
+    \alert{highlighted} because it's important. Please, don't abuse it.
+    
+    \begin{block}{Remark}
+        Sample text
+    \end{block}
+    
+    \begin{alertblock}{Important theorem}
+        Sample text in alert box
+    \end{alertblock}
+    
+    \begin{examples}
+        Sample text in green box. The title of the block is ``Examples".
+    \end{examples}
+    
+\end{frame}
+
+\setLayout{vertical}
+\begin{frame}[noframenumbering,plain]{Optimal reduction}
+	\vfill
+	
+		
+	\begin{remark}	 
+	 A first draft on the related ``Model reduction for Hidden Markov Models'' can be found on \tikzmark[UNIPDred]{link}{arXiv:2208.05968}
+	\end{remark}
+	\begin{tikzpicture}[overlay, remember picture,node distance =.8cm]
+	    \node[](qr) at (-6,-1.5) {\includegraphics[scale=0.05]{imgs/algebraic.png}};
+	    \draw[,->,thick] (link) to [in=180,out=-90] (qr.west);
+	 \end{tikzpicture}
+	\vfill
+\end{frame}
+
+\setLayout{mainpoint}
+\begin{frame}[noframenumbering,plain]{Let's see some results} 
+\end{frame}
+
+\setLayout{vertical}
+\begin{frame}[noframenumbering,plain]{Analysis of the coined quantum walks} 
+    \vfill 
+    \centering
+        \pgfplotstableread{codes/coined_walk.dat}{\table}
+         
+        \begin{tikzpicture}\centering
+            \begin{axis}[
+                xmin = 1, xmax = 11,
+                ymin = 0, ymax = 900,
+                xtick distance = 1,
+                ytick distance = 200,
+                grid = both,
+                minor tick num = 1,
+                major grid style = {lightgray},
+                minor grid style = {lightgray!25},
+                width = \textwidth,
+                height = 0.5\textwidth,
+                legend cell align = {left},
+                legend pos = north west,
+                legend style={nodes={scale=0.7, transform shape}}, 
+                %legend image post style={mark=*},
+                xlabel={$n_1$},
+                ylabel={$\dim(\cdot)$}
+            ]
+             
+            %\addplot[NavyBlue, mark = *, dashed] table [x = {x}, y = {y1}] {\table};
+             
+            \addplot[orange, mark = *, dashed] table [x ={x}, y = {y2}] {\table};
+             
+            \addplot[ForestGreen, mark = *, dashed] table [x = {x}, y = {y3}] {\table};
+            
+            \addplot[red, mark = *, dashed] table [x ={x}, y = {y4}] {\table};
+             
+            \legend{
+                %$\dim(\mathscr{N}^\perp)$ - random, 
+                $\dim(\mathscr{N}^\perp)$ - reflection coin,
+                $\dim(\mathscr{N}^\perp)$ - Hadamard coin,
+                $\dim(\hH)$
+            }
+             
+            \end{axis}
+         
+        \end{tikzpicture}
+    \vfill
+    \end{frame}
+
+    \setBGColor{c2}
+    \setLayout{blank}
+    \begin{frame}[noframenumbering,plain]{Imported code from file}
+        \vfill
+        \vspace{-0.5cm}
+        \begin{columns}
+        \column{0.5\textwidth}
+        {\color{black}
+        \begin{align*}
+            G(s) &= \frac{5s+50}{s^2+101s+100}\\ 
+            &= 5\frac{s+10}{(s+1)(s+100)}
+        \end{align*}
+
+        \bigskip
+        $$ \begin{cases}\dot{x}(t) = Ax(t) + Bu(t)\\
+        y(t) = Cx(t) + D u(t)
+        \end{cases}$$
+        \begin{align*}
+            &A=\begin{bmatrix}0&1\\-100&-101\end{bmatrix}, 
+        \quad &B =\begin{bmatrix}0\\1\end{bmatrix}, \\
+        \quad &C =\begin{bmatrix}50&5\end{bmatrix}, 
+        \quad &D =\begin{bmatrix}0\end{bmatrix}
+        \end{align*}}
+        \column{0.5\textwidth}
+        \codesection{}{codes/slide1.m}
+
+        \end{columns}
+        \vfill
+    \end{frame}
+
+    \setLayout{vertical}
+    \begin{frame}[noframenumbering,plain,fragile]{Inline code (Clearly needs some work)}
+        \vfill
+        \hspace{-2cm}
+        \begin{columns}
+        \column{0.5\textwidth}
+        \vspace{-0cm}
+        \hspace{-1cm}\includegraphics[scale=0.5]{forced.png}
+        \column{0.5\textwidth}
+        \vspace{-6cm}\hspace{-2cm}
+        \begin{code}{Display forced response}
+        t = 0:0.1:15;  
+        u = sin(2*t);   
+        x0 = 0;         
+        y = lsim(sysG, u, t, x0);
+        
+        figure;
+        plot(t, u, 'k--');
+        hold on;
+        plot(t, y, 'b');
+        legend('input', 'output');
+        grid on;
+        \end{code}
+        \end{columns}
+        \vfill
+    \end{frame}
+
+    \begin{frame}[noframenumbering,plain]{Columns}
+        \vfill
+        \bigskip
+        \begin{columns}
+        \column{0.4\textwidth}
+        \alert{Encapsulated form:}\\
+        The CST stores and uses the model-related data via LTI objects (objects in the sense of object-oriented programming). 
+        \column{0.5\textwidth}
+        \alert{Non-encapsulated form:}\\
+        poles and zeros, state/input/output matrices etc. etc.
+        \end{columns}
+        \bigskip
+        From the encapsulated form it is possible to access the non-encapsulated data via dot-notation
+
+    \vfill
+    \end{frame}
+
+%------------------------------------CONCLUSION--------------------------------------------
+\setBGColor{UNIPDred}
+
+\setBGColor{UNIPDred}
+\setLayout{vertical}
+\begin{frame}[noframenumbering,plain]{Conclusions and outlook} 
+\vfill 
+Classical control tools can be used to study quantum walks and find the minimal linear model capable of reproducing the output probability distribution.
+
+Grover's algorithm uses surprisingly few resources.\bigskip
+
+Future directions:
+\begin{itemize}
+    \item Robustness to initialization errors. 
+    \item More general output functions. 
+    \item \textbf{\color{UNIPDred}Completely positive and trace preserving constraint.}
+\end{itemize}
+
+\vfill
+\end{frame}
+
+
+\setLayout{blank}
+\begin{frame}[noframenumbering,plain]
+	\centering
+	
+	\vspace{1cm}
+	\textbf{\Huge Thank you for your attention!} 
+	
+	\vspace{1cm}
+	\tikzmark{qr}{\includegraphics[scale=0.05]{imgs/my_website.png}}
+ 	\begin{tikzpicture}[overlay, remember picture,node distance =.8cm]
+	    \node(word) at (-4,0) {My website};
+% 	    \node(qr) at (0,0) {};
+ 	    \draw[,->,thick] (word.east) to [in=180,out=45] (qr.west);
+ 	 \end{tikzpicture}
+	
+	\vspace{1cm}
+	
+	\begin{figure}
+		\centering
+		\begin{subfigure}{0.2\textwidth}
+			\centering
+			\includegraphics[height=2cm]{lib/logos/dei_white.png}
+		\end{subfigure}
+	\hspace{1cm}
+	\vrule \ \hspace{1cm}
+		\begin{subfigure}{0.2\textwidth}
+			\centering
+			\includegraphics[height=2cm]{lib/logos/unipd_white.png}
+		\end{subfigure}
+		
+	\end{figure}
+\end{frame}
+
+\end{document}

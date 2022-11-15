@@ -1,0 +1,224 @@
+\usepackage[utf8]{inputenc}
+
+\usetheme{UNIPD}
+% First one is logo in title slide (we recommend use a horizontal image), and second one is the logo used in the remaining slides (we recommend use a square image)
+\setLogos{lib/logos/dei_white.png}{lib/logos/dei_white_vertical.png} 
+
+\usepackage{listings}
+\usepackage[listings]{tcolorbox}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.3}
+\tikzset{pointille/.style={dash pattern = on 2pt off 2pt on 6pt off 2pt}}
+\tikzset{points/.style={dash pattern = on 1pt off 1pt}}
+\tikzset{tirets/.style={dash pattern = on 5pt off 5pt}}
+
+%\renewcommand{\only}{}
+
+\usetikzlibrary{positioning}
+\tikzset{>=stealth}
+\newcommand{\tikzmark}[3][]{\tikz[remember picture,baseline] \node [anchor=base,#1](#2){$#3$};}
+\usetikzlibrary{automata}
+
+\usepackage{booktabs} 
+\usepackage{bm}
+\usepackage{subcaption}
+\usepackage{mathrsfs}
+
+\usepackage{palatino}
+
+\usepackage{scrextend}
+\usepackage{wrapfig}
+
+\usepackage{quiver}
+%--------------------------------------- Drawings
+\usepackage{tikz}
+\usetikzlibrary{calc,decorations.pathmorphing,patterns}
+\pgfdeclaredecoration{penciline}{initial}{
+    \state{initial}[width=+\pgfdecoratedinputsegmentremainingdistance,
+    auto corner on length=1mm,]{
+        \pgfpathcurveto%
+        {% From
+            \pgfqpoint{\pgfdecoratedinputsegmentremainingdistance}
+                      {\pgfdecorationsegmentamplitude}
+        }
+        {%  Control 1
+        \pgfmathrand
+        \pgfpointadd{\pgfqpoint{\pgfdecoratedinputsegmentremainingdistance}{0pt}}
+                    {\pgfqpoint{-\pgfdecorationsegmentaspect
+                     \pgfdecoratedinputsegmentremainingdistance}%
+                               {\pgfmathresult\pgfdecorationsegmentamplitude}
+                    }
+        }
+        {%TO 
+        \pgfpointadd{\pgfpointdecoratedinputsegmentlast}{\pgfpoint{1pt}{1pt}}
+        }
+    }
+    \state{final}{}
+}
+
+%-------------------------------------------------------
+
+\graphicspath{ {./imgs/}}
+
+\usepackage[backend=bibtex, style=ieee]{biblatex}
+\addbibresource{ref.bib}
+\nocite{*}
+\renewcommand*{\bibfont}{\tiny}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+%-------------------------------------theorems--------------
+\newtheorem*{conjecture}{Conjecture}
+\newtheorem{ex}{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{lem}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{cor}{Corollary}
+\newtheorem*{remark}{Remark}
+\newtheorem*{defi}{Definition}
+\theoremstyle{definition}
+\newtheorem*{assumption}{Assumption}
+\newtheorem{prob}{Switching control problem}
+
+\setbeamertemplate{theorems}[numbered]
+\setbeamertemplate{caption}[numbered]
+
+%-------------------------------------------------------------%
+%----------------------- Primary Definitions -----------------%
+
+% This command set the default Color, is also possible to choose a custom color
+\setPrimaryColor{UNIPDred} 
+
+\definecolor{simpleBlack}{HTML}{202020}
+
+\definecolor{c1}{HTML}{7FB069}
+\definecolor{c2}{HTML}{A3E7FC}
+\definecolor{c3}{HTML}{FB8B24}
+\definecolor{c4}{HTML}{335C67}
+\definecolor{c5}{HTML}{1B9AAA}
+\definecolor{c7}{HTML}{4B4E6D}
+\definecolor{c6}{HTML}{F38D68}
+\definecolor{c8}{HTML}{F5D547}
+\definecolor{c9}{RGB}{231,237,57}
+\definecolor{c10}{RGB}{237,57,71}
+\definecolor{c11}{RGB}{119,237,57}
+\definecolor{c12}{RGB}{0,63,225}
+\definecolor{c13}{RGB}{237,57,223}
+
+
+\newcommand{\ket}[1]{\left| #1 \right>}
+\newcommand{\bra}[1]{\left< #1 \right|}
+\newcommand{\norm}[1]{\left|\left| #1 \right|\right|}
+\newcommand{\inner}[2]{\left< #1,#2 \right>}
+\newcommand{\Outer}[2]{ \left|#1\right>\left<#2\right| }
+\newcommand{\expect}[1]{\left< #1 \right>}
+\newcommand{\blue}{\color{blue}}
+\newcommand{\red}[1]{{\color{red} #1}}
+\newcommand{\virg}[1]{\lq\lq#1\ignorespacesafterend\rq\rq}
+
+\newcommand{\tr}{{\rm tr}}
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\Span}{{\rm span}}
+\newcommand{\cl}{{\rm cl}}
+\DeclareMathOperator{\rank}{rank}
+\newcommand{\spec}{{\rm spec}}
+\newcommand{\idem}{ {\rm idem}}
+\newcommand{\res}{{\rm res}}
+\newcommand{\supp}{{\rm supp}}
+\newcommand{\lind}{\mathcal{L}}
+\newcommand{\one}{\bm 1}
+\newcommand{\zero}{\bm 0}
+\newcommand{\alg}{{\rm alg}}
+\newcommand{\img}{{\rm Im}}
+
+\renewcommand{\H}{\mathcal{H}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\BH}{\mathcal{B}(\H)}
+\newcommand{\hH}{\mathfrak{h}(\H)}
+\renewcommand{\DH}{\mathfrak{D}(\H)}
+\newcommand{\Piso}{\mathcal{P}}
+
+\newcommand{\Prob}{{\mathbb{P}}} % Probability measure in the Algebraic framework
+\newcommand{\E}{{\mathbb{E}}} % Expectation in the algebraic framework
+\newcommand{\str}[1]{{[{\bm #1}]}}
+\newcommand{\chr}[1]{#1}
+
+\newcommand{\R}{\mathcal{R}}
+\newcommand{\NR}{\mathcal{N^R}}
+\newcommand{\Oo}{\mathcal{O}}
+\newcommand{\NO}{\mathcal{N^O}}
+\newcommand{\p}{\bar{\bm p}}
+
+\newcommand{\pO}{\p\wedge\Oo}
+\newcommand{\pNR}{\p\wedge\NR}
+\newcommand{\pNO}{\p^{-1}\wedge\NO}
+\newcommand{\pR}{\p^{-1}\wedge\R}
+\newcommand{\X}{\mathbb{R}^n}
+\newcommand{\A}{\mathscr{A}}
+\newcommand{\pA}{\p\wedge\A}
+
+%%% ------------------------------ code snippets
+
+\definecolor{dot1}{HTML}{FF5F55}
+\definecolor{dot2}{HTML}{FFBE2A}
+\definecolor{dot3}{HTML}{22CA3D}
+
+\definecolor{background}{RGB}{39, 40, 34}
+\definecolor{string}{RGB}{230, 219, 116}
+\definecolor{comment}{HTML}{489038}
+\definecolor{normal}{RGB}{248, 248, 242}
+\definecolor{identifier}{RGB}{166, 226, 46}
+
+\lstdefinestyle{mystyle}{
+    language=Matlab,                			% choose the language of the code
+  numbers=left,                   		% where to put the line-numbers
+  stepnumber=1,                   		% the step between two line-numbers. 
+  lineskip=-5pt,
+  numbersep=5pt,                  		% how far the line-numbers are from the code
+  numberstyle=\tiny\color{string}\ttfamily,
+  %backgroundcolor=\color{background},  		% choose the background color. You must add \usepackage{color}
+  showspaces=false,               		% show spaces adding particular underscores
+  showstringspaces=false,         		% underline spaces within strings
+  showtabs=false,                 		% show tabs within strings adding particular underscores
+  tabsize=4,                      		% sets default tabsize to 2 spaces
+  captionpos=b,                   		% sets the caption-position to bottom
+  breaklines=true,                		% sets automatic line breaking
+  breakatwhitespace=true,         		% sets if automatic breaks should only happen at whitespace
+  %title=\lstname,                 		% show the filename of files included with \lstinputlisting;
+  basicstyle=\small\color{normal}\ttfamily,					% sets font style for the code
+  keywordstyle=\small\color{magenta}\ttfamily,	% sets color for keywords
+  stringstyle=\small\color{string}\ttfamily,		% sets color for strings
+  commentstyle=\small\color{comment}\ttfamily,	% sets color for comments
+  emph={format_string, eff_ana_bf, permute, eff_ana_btr},
+  emphstyle=\color{identifier}\ttfamily, 
+  aboveskip=0pt
+}
+
+\lstset{style=mystyle}
+
+% First one is logo in title slide (we recommend use a horizontal image), and second one is the logo used in the remaining slides (we recommend use a square image)
+\setLogos{lib/logos/dei_white.png}{lib/logos/dei_white_vertical.png} 
+
+\newtcbox{\codebox}[1]{colback=white!5!simpleBlack,
+colframe=simpleBlack,fonttitle=\bfseries, top= 0mm, drop fuzzy shadow, enhanced, hbox,
+title={\hspace{-0.3cm}{\color{dot1} $\bullet$} {\color{dot2} $\bullet$} {\color{dot3} $\bullet\quad$} #1}}
+
+
+\newcommand{\codesection}[2]{
+\codebox{#1}{\vspace{-0.3cm}{\lstinputlisting[language=Matlab]{#2}}}}
+
+\tcbuselibrary{skins}
+
+\newtcblisting{code}[1]{listing only, 
+colback=white!5!simpleBlack,
+colframe=simpleBlack,
+fonttitle=\bfseries, 
+listing options = {style = mystyle},
+top= 2mm,
+drop fuzzy shadow, enhanced, hbox,
+title={\hspace{-0.3cm}
+{\color{dot1} $\bullet$} 
+{\color{dot2} $\bullet$}
+{\color{dot3} $\bullet\quad$} #1}}
